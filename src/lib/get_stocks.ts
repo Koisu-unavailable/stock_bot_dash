@@ -1,7 +1,13 @@
 import sqlite3 from "sqlite3";
 
-let db = new sqlite3.Database('../stock_prices.db', sqlite3.READONLY);
+export function readDb() {
+  let rows: any[] = [];
+  let db = new sqlite3.Database("../stock_prices.db");
+  db.all("SELECT * FROM stock", (err, dbrows) => {
+    dbrows.forEach((row) => {
+      rows.push(row);
+    });
+  });
 
-export function readDb(){
-    stuff = db.get("SELECT * FROM stock")
+  return rows;
 }
